@@ -3,20 +3,40 @@ html(lang='en')
   include common/head.pug
   +head("Starter MVP")
   body
-    h1= title
-    p Welcome to #{title}
-    form(action="/", method="POST")
-      input(name="lead_email", type="email", placeholder="Enter your email address")
-      button(type="submit") Submit  
-    if leads
-      h1 Leads
-      for lead in leads
-        p(id=lead.id)
-          span #{lead.email}
-          | 
-          a(href="/lead/" + lead.id) Details
-          |
-          button(onclick=`deleteLead('${lead.id}')`) Delete
+    header
+      include common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1.mb-3 Minimum Viable Landing Page
+            p.lead This tutorial teaches you how to build a NodeJS web application covering key topics.
+            p.lead.mb-4 Learn how to launch a landing page and start collecting sales leads.
+            form(action="/", method="POST")
+              .input-group.mb-3
+                input(name="lead_email", type="email", placeholder="Enter your email address").form-control
+                .input-group-append
+                  button(type="submit").btn.btn-primary Get Started
+        .row
+          .col-md-6    
+            if leads
+              h1 Leads
+              table.table
+                thead
+                  tr
+                    th(scope="col") Email
+                    th(scope="col") Actions
+                    th(scope="col")
+                  tr
+                tbody                
+                  for lead in leads
+                    tr(id=lead.id)
+                      td
+                        span #{lead.email}
+                      td
+                        a(href="/lead/" + lead.id) Details
+                      td 
+                        button(onclick=`deleteLead('${lead.id}')`).btn.btn-primary Delete
     include common/footer.pug
     +footer()
     script(src='/javascripts/leads.js')
