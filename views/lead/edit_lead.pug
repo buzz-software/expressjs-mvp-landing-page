@@ -1,6 +1,19 @@
-extends ../layout
-
-block content
-  form(action="/lead/" + lead.id + "/edit", method="POST")
-    input(name="lead_email", type="email", placeholder="Enter your email address", value=lead.email)
-    button(type="submit") Save  
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Edit Lead")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Edit Lead
+            form(action="/lead/"+lead.id+"/edit", method="POST")
+              .input-group.mb-3
+                input(name="lead_email", type="email", placeholder="Enter your email address", value=lead.email).form-control
+                .input-group-append
+                  button(type="submit").btn.btn-primary Save
+    include ../common/footer.pug
+    +footer()

@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Leads")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Leads
+            table.table
+              thead
+                tr
+                  th(scope="col") Email
+                  th(scope="col") Actions
+                  th(scope="col")
+                tr
+              tbody                
+                for lead in leads
+                  tr(id=lead.id)
+                    td
+                      span #{lead.email}
+                    td
+                      a(href="/lead/" + lead.id) Details
+                    td 
+                      button(onclick=`deleteLead('${lead.id}')`).btn.btn-primary Delete
+    include ../common/footer.pug
+    +footer()
+    script(src='/javascripts/leads.js')
