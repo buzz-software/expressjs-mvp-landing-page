@@ -1,0 +1,29 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Login to Starter MVP")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row
+          .col-sm-12.offset-md-2.col-md-8
+            .jumbotron
+              h2.text-center Login
+              .row
+                .col-sm-12.col-md-12.col-xs-12
+                  form(action='/login', method='POST')
+                    div.formgroup
+                      label.small.mb-1.mt-3 Email:
+                      input(placeholder='Enter your email', required=true, name='email', type='email', value='').form-control
+                      label.small.mb-1.mt-3 Password:
+                      input(placeholder='Enter your current password',required=true, name='password', type='password', value='').form-control
+                      button.mt-3.btn.btn-primary(type='submit') Log in
+                      p.mt-2.mb-0
+                        | Forgot your password? #[a(href="#") Reset here].
+                      p.m-0
+                        | Don't have an account? #[a(href="/signup") Sign up here].
+
+    include ../common/footer.pug
+    +footer()
