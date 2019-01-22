@@ -1,4 +1,4 @@
-mixin navbar()
+mixin navbar(user)
   nav.navbar.navbar-expand.navbar-light.bg-light
     a(href="/", aria-label="Golden Goose").navbar-brand.mr-0.mr-md-2
       img(src="/images/golden-goose.svg", width="36", height="36")
@@ -7,4 +7,15 @@ mixin navbar()
         li.nav-item
           a.nav-link(href="/") Home
         li.nav-item
-          a.nav-link(href="/leads") Leads  
+          a.nav-link(href="/leads") Leads
+    .navbar-right
+      if user
+        span.navbar-text Hello #{user.email}!
+    .navbar-right
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a.nav-link(href="/signup") Sign up
+        li.nav-item
+          a.nav-link(href="/login") Login
+        li.nav-item
+          a.nav-link(href="/logout") Logout
