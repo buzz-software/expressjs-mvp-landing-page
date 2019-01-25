@@ -3,6 +3,10 @@ html(lang='en')
   include common/head.pug
   +head("Error")
   body
-    h1= message
-    h2= error.status
-    pre #{error.stack}
+    header
+      .container
+        .row
+          .col-md-12
+            h1= message
+            h2.text-danger= error.status
+            pre.text-danger #{error.stack}
