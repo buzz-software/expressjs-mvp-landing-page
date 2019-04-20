@@ -21,7 +21,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "pg": "^7.7.1",
-    "pug": "2.0.0-beta11",
+    "pug": "^2.0.3",
     "sequelize": "^4.42.0",
     "validator": "^10.11.0"
   },
