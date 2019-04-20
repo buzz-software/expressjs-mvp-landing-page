@@ -8,6 +8,9 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 let bcrypt = require('bcrypt');
 let models = require('./models');
 
+var env  = process.env.NODE_ENV || 'development';
+let configs = { development, production, beta } = require('./config/social_config');
+const {twitter, google, facebook} = configs[env];
 
 const { sanitizeName } = require('./helpers/generic');
 const {generate_unique_username, generate_unique_from_username} = require('./helpers/genusername');

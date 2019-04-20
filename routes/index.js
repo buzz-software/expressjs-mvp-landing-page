@@ -6,6 +6,7 @@ let user = require('../controllers/user');
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
+var passport = require('passport');
 router.get('/signup/twitter/return', passport.authenticate('twitter'), (req, res, next) => {
     res.redirect("/");
 });
