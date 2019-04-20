@@ -12,6 +12,11 @@ html(lang='en')
             .jumbotron
               h2.text-center Sign up
               .row
+                .col-sm-10.offset-md-1.offset-sm-1.col-md-10.align-center
+                  a(href="/signup-google").mt-3.btn.btn-primary.btn-block Sign up with Google
+                  a(href="/signup-facebook").mt-3.btn.btn-primary.btn-block Sign up with Facebook
+                  a(href="/signup-twitter").mt-3.btn.btn-primary.btn-block Sign up with Twitter
+              .row
                 .col-sm-12.col-md-12
                   form(action='/signup', method='POST')
                     div.formgroup

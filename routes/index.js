@@ -7,6 +7,7 @@ let user = require('../controllers/user');
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
 var passport = require('passport');
+
 router.get('/signup/twitter/return', passport.authenticate('twitter'), (req, res, next) => {
     res.redirect("/");
 });
@@ -20,9 +21,9 @@ router.get('/o/oauth/facebook', passport.authenticate('facebook'), (req, res, ne
 });
 
 
-router.get('/o/user-signup/twitter', passport.authenticate('twitter'));
-router.get('/o/user-signup/google', passport.authenticate('google', { scope: ['profile', 'email']}));
-router.get('/o/user-signup/facebook', passport.authenticate('facebook', { scope: ['email']}));
+router.get('/signup-twitter', passport.authenticate('twitter'));
+router.get('/signup-google', passport.authenticate('google', { scope: ['profile', 'email']}));
+router.get('/signup-facebook', passport.authenticate('facebook', { scope: ['email']}));
 
 router.get('/login', user.show_login);
 router.get('/signup', user.show_signup);
