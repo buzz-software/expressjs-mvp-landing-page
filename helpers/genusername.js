@@ -1,4 +1,4 @@
-
+const models = require('../models');
 
 
 const { random_digits } = require('../helpers/random');
