@@ -6,18 +6,19 @@ mixin navbar(user)
       ul.navbar-nav.mr-auto
         li.nav-item
           a.nav-link(href="/") Home
-        li.nav-item
-          a.nav-link(href="/leads") Leads
-        li.nav-item
-          a.nav-link(href="/plans") Plans
+        if currentUser && currentUser.is_admin
+          li.nav-item
+            a.nav-link(href="/leads") Leads
+          li.nav-item
+            a.nav-link(href="/plans") Plans
     .navbar-right
-      if user
-        span.navbar-text Hello #{user.firstname}!
+      if currentUser
+        span.navbar-text Hello #{currentUser.firstname}!
     .navbar-right
       ul.navbar-nav.mr-auto
         li.nav-item
           a.nav-link(href="/pricing") Pricing
-        if !user
+        if !currentUser
           li.nav-item
             a.nav-link(href="/signup") Sign up
           li.nav-item

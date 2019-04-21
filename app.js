@@ -26,6 +26,13 @@ app.use(session({ secret: 'our new secret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// middleware for currentUser to use in pug files
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
