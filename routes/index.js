@@ -3,6 +3,7 @@ var router = express.Router();
 
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
+let plan = require('../controllers/plan');
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
@@ -20,7 +21,7 @@ router.get('/o/oauth/facebook', passport.authenticate('facebook'), (req, res, ne
     res.redirect("/");
 });
 
-
+router.get('/pricing', plan.show_pricing);
 router.get('/signup-twitter', passport.authenticate('twitter'));
 router.get('/signup-google', passport.authenticate('google', { scope: ['profile', 'email']}));
 router.get('/signup-facebook', passport.authenticate('facebook', { scope: ['email']}));
@@ -41,4 +42,14 @@ router.get('/lead/:lead_id/edit', hasAuth, landing.show_edit_lead);
 router.post('/lead/:lead_id/edit', hasAuth, landing.edit_lead);
 router.post('/lead/:lead_id/delete', hasAuth, landing.delete_lead);
 router.post('/lead/:lead_id/delete-json', hasAuth, landing.delete_lead_json)
+
+/* Plans */
+router.get('/plan/new', plan.show_create_plan)
+router.post('/plan/new', plan.submit_plan);
+router.get('/plans', plan.show_plans);
+router.get('/plan/:plan_id', plan.show_plan);
+router.get('/plan/:plan_id/edit', plan.show_edit_plan);
+router.post('/plan/:plan_id/edit', plan.edit_plan);
+router.post('/plan/:plan_id/delete', plan.delete_plan);
+/*router.post('/plan/:plan_id/delete-json', plan.delete_plan_json)*/
 module.exports = router;

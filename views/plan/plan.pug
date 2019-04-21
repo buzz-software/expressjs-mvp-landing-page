@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Plan")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Plan
+            table.table
+              thead
+                tr
+                  th(scope="col") Name
+                  th(scope="col") Edit
+                  th(scope="col") Delete
+                tr
+              tbody                              
+                tr(id=plan.id)
+                  td
+                    span #{plan.name}
+                  td
+                    a(href="/plan/" + plan.id + "/edit") Edit
+                  td 
+                    form(action="/plan/" + plan.id + "/delete", method="POST")
+                      button(type="submit").btn.btn-primary Delete
+    include ../common/footer.pug
+    +footer()
+    script(src='/javascripts/plans.js')

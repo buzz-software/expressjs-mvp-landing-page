@@ -1,0 +1,54 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Edit Plan")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Edit Plan
+            form(action="/plan/"+plan.id+"/edit", method="POST")
+              .input-group.mb-3
+                input(name="plan_name", type="text", placeholder="Enter plan name, e.g. Basic/Small Business/Pro", value=plan.name).form-control
+              .input-group.mb-3
+                input(name="plan_price_per_period", type="number", placeholder="USD price per period", value=plan.price_per_period).form-control
+              .input-group.mb-3
+                .form-check
+                  input(name="plan_billing_period", type="radio", id="plan_monthly", value="Monthly", checked=(plan.billing_period == "monthly")).mr-1
+                  label(for="plan_monthly").form-check-label Monthly
+                .form-check
+                  input(name="plan_billing_period", type="radio", id="plan_yearly", value="Yearly", checked=(plan.billing_period=="yearly")).mr-1
+                  label(for="plan_yearly").form-check-label Yearly
+              .input-group.mb-3
+                input(name="plan_cta", type="text", placeholder="Call to action, e.g. Get Started Free", value=plan.cta).form-control
+              .input-group.mb-3
+                input(name="plan_discount_pct", type="number", placeholder="Discount percentage", value=plan.discount_pct).form-control
+              .input-group.mb-3
+                input(name="plan_feature1", type="text", placeholder="Enter feature description", value=plan.feature1).form-control
+              .input-group.mb-3
+                input(name="plan_feature2", type="text", placeholder="Enter feature description", value=plan.feature2).form-control
+              .input-group.mb-3
+                input(name="plan_feature3", type="text", placeholder="Enter feature description", value=plan.feature3).form-control
+              .input-group.mb-3
+                input(name="plan_feature4", type="text", placeholder="Enter feature description", value=plan.feature4).form-control
+              .input-group.mb-3
+                input(name="plan_feature5", type="text", placeholder="Enter feature description", value=plan.feature5).form-control
+              .input-group.mb-3
+                input(name="plan_feature6", type="text", placeholder="Enter feature description", value=plan.feature6).form-control
+              .input-group.mb-3
+                input(name="plan_feature7", type="text", placeholder="Enter feature description", value=plan.feature7).form-control
+              .input-group.mb-3
+                input(name="plan_feature8", type="text", placeholder="Enter feature description", value=plan.feature8).form-control
+              .input-group.mb-3
+                input(name="plan_feature9", type="text", placeholder="Enter feature description", value=plan.feature9).form-control
+              .input-group.mb-3
+                input(name="plan_feature10", type="text", placeholder="Enter feature description", value=plan.feature10).form-control
+              .input-group.mb-3
+                input(name="plan_rank", type="number", placeholder="Order of appearance", value=plan.rank).form-control              
+                .input-group-append
+                  button(type="submit").btn.btn-primary Save
+    include ../common/footer.pug
+    +footer()
