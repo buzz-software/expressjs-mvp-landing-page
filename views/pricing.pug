@@ -7,7 +7,7 @@ html(lang='en')
       include common/navbar.pug
       +navbar(user)
     //  Custom styles for this template 
-    link(href='./stylesheets/pricing.css', rel='stylesheet')
+    link(href='/stylesheets/pricing.css', rel='stylesheet')
   body(cz-shortcut-listen='true')
     .pricing-header.px-3.py-3.pt-md-5.pb-md-4.mx-auto.text-center
       h1.display-4 Pricing
@@ -88,3 +88,5 @@ html(lang='en')
                 a.text-muted(href='https://getbootstrap.com/docs/4.3/examples/pricing/#') Privacy
               li
                 a.text-muted(href='https://getbootstrap.com/docs/4.3/examples/pricing/#') Terms
+    include common/footer.pug
+    +footer()

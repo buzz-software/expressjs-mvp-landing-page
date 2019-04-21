@@ -11,6 +11,8 @@ mixin navbar(user)
             a.nav-link(href="/leads") Leads
           li.nav-item
             a.nav-link(href="/plans") Plans
+          li.nav-item
+            a.nav-link(href="/dashboard") Dashboard
     .navbar-right
       if currentUser
         span.navbar-text Hello #{currentUser.firstname}!

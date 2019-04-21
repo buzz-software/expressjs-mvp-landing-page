@@ -1,0 +1,36 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head("Starter MVP")
+  body
+    header
+      include common/navbar.pug
+      +navbar(user)
+    //  Custom styles for this template 
+    link(href='/stylesheets/simple-sidebar.css', rel='stylesheet')
+  body
+    .d-flex#wrapper
+      //  Sidebar 
+      .bg-light.border-right#sidebar-wrapper
+        .sidebar-heading Dashboard
+        .list-group.list-group-flush
+          a.list-group-item.list-group-item-action.bg-light(href='#') Leads
+          a.list-group-item.list-group-item-action.bg-light(href='#') Plans
+          a.list-group-item.list-group-item-action.bg-light(href='#') Overview
+          a.list-group-item.list-group-item-action.bg-light(href='#') Events
+          a.list-group-item.list-group-item-action.bg-light(href='#') Profile
+          a.list-group-item.list-group-item-action.bg-light(href='#') Status
+      //  /#sidebar-wrapper 
+      //  Page Content 
+      #page-content-wrapper
+        .container-fluid
+          h1.mt-4 Simple Sidebar
+          p The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.
+          p
+            | Make sure to keep all page content within the 
+            code #page-content-wrapper
+            | . The top navbar is optional, and just for demonstration. Just create an element with the 
+            code #menu-toggle
+            |  ID which will toggle the menu when clicked.
+    include common/footer.pug
+    +footer()  

@@ -4,6 +4,7 @@ var router = express.Router();
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
 let plan = require('../controllers/plan');
+let dboard = require('../controllers/dashboard')
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
@@ -32,6 +33,9 @@ router.post('/login', user.login);
 router.post('/signup', user.signup);
 router.post('/logout', user.logout);
 router.get('/logout', user.logout);
+
+/* Dashboard */
+router.get('/dashboard', dboard.get_dashboard)
 
 /* GET home page. */
 router.get('/', landing.get_landing);
