@@ -8,14 +8,20 @@ mixin navbar(user)
           a.nav-link(href="/") Home
         li.nav-item
           a.nav-link(href="/leads") Leads
+        li.nav-item
+          a.nav-link(href="/plans") Plans
     .navbar-right
       if user
-        span.navbar-text Hello #{user.email}!
+        span.navbar-text Hello #{user.firstname}!
     .navbar-right
       ul.navbar-nav.mr-auto
         li.nav-item
-          a.nav-link(href="/signup") Sign up
-        li.nav-item
-          a.nav-link(href="/login") Login
-        li.nav-item
-          a.nav-link(href="/logout") Logout
+          a.nav-link(href="/pricing") Pricing
+        if !user
+          li.nav-item
+            a.nav-link(href="/signup") Sign up
+          li.nav-item
+            a.nav-link(href="/login") Login
+        else
+          li.nav-item
+            a.nav-link(href="/logout") Logout
