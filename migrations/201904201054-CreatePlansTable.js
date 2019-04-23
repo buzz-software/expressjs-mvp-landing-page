@@ -20,7 +20,10 @@ module.exports = {
       discount_pct: {
         type: Sequelize.INTEGER,
       },
-      stripe_planId: {
+      stripe_PlanId: {
+        type: Sequelize.STRING,
+      },
+      stripe_ProductId: {
         type: Sequelize.STRING,
       },
       /* Features as text */

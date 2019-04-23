@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     discount_pct: {
       type: DataTypes.INTEGER,
     },
-    stripe_planId: {
+    stripe_PlanId: {
+      type: DataTypes.STRING,
+    },
+    stripe_ProductId: { 
       type: DataTypes.STRING,
     },
     /* Features as text */
