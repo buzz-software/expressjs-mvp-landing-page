@@ -23,6 +23,7 @@ router.get('/o/oauth/facebook', passport.authenticate('facebook'), (req, res, ne
 });
 
 router.get('/pricing', plan.show_pricing);
+router.get('/pricing-yearly', plan.show_pricing_yearly);
 router.get('/signup-twitter', passport.authenticate('twitter'));
 router.get('/signup-google', passport.authenticate('google', { scope: ['profile', 'email']}));
 router.get('/signup-facebook', passport.authenticate('facebook', { scope: ['email']}));

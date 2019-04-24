@@ -191,8 +191,13 @@ exports.delete_plan = function(req, res, next) {
 }
 
 exports.show_pricing = function(req, res, next) {
-	return models.Plan.findAll().then(plans => {
+	return models.Plan.findAll({where: {billing_period: "monthly"}}).then(plans => {
 		res.render("pricing", { plans : plans });
 	});
 }
 
+exports.show_pricing_yearly = function(req, res, next) {
+	return models.Plan.findAll({where: {billing_period: "yearly"}}).then(plans => {
+		res.render("pricing", { plans : plans });
+	});
+}
