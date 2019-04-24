@@ -1,0 +1,21 @@
+mixin sidedash(title, user, items)
+  include ./head.pug
+  +head(title)
+  body
+    header
+      include ./navbar.pug
+      +navbar(user)
+    //  Custom styles for this template 
+    link(href='/stylesheets/simple-sidebar.css', rel='stylesheet')
+    .d-flex#wrapper
+      //  Sidebar 
+      .bg-light.border-right#sidebar-wrapper
+        .sidebar-heading Dashboard
+        .list-group.list-group-flush
+          for item in items
+            a.list-group-item.list-group-item-action.bg-light(href=item.link) #{item.name}
+      //  /#sidebar-wrapper 
+      //  Page Content 
+      #page-content-wrapper
+        .container-fluid
+          block

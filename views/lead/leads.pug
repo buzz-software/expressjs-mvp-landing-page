@@ -1,11 +1,21 @@
-doctype html
-html(lang='en')
-  include ../common/head.pug
-  +head("Leads")
-  body
-    header
-      include ../common/navbar.pug
-      +navbar()
+include ../common/head.pug
++head("Leads")
+body
+  header
+    include ../common/navbar.pug
+    +navbar(user)
+  //  Custom styles for this template 
+  link(href='/stylesheets/simple-sidebar.css', rel='stylesheet')
+  .d-flex#wrapper
+    //  Sidebar 
+    .bg-light.border-right#sidebar-wrapper
+      .sidebar-heading Dashboard
+      .list-group.list-group-flush
+        for item in panel
+          a(href=item.link).list-group-item.list-group-item-action.bg-light #{item.name}
+    //  /#sidebar-wrapper 
+    //  Page Content 
+    #page-content-wrapper
       .container
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
@@ -26,6 +36,6 @@ html(lang='en')
                       a(href="/lead/" + lead.id) Details
                     td 
                       button(onclick=`deleteLead('${lead.id}')`).btn.btn-primary Delete
-    include ../common/footer.pug
-    +footer()
-    script(src='/javascripts/leads.js')
+  include ../common/footer.pug
+  +footer()
+  script(src='/javascripts/leads.js')

@@ -4,15 +4,18 @@ var env  = process.env.NODE_ENV || 'development';
 //const {twitter, google, facebook} = configs[env];
 const models = require('../models')
 
-exports.show_create_plan = function(req, res, next) {
-	res.render('plan/create_plan', {  });
-}
 
 
 const productPrefix = "SaaS_";
 
 var stripe = require("stripe")("sk_test_NJ73Ciw9UF0TNSERdKlZWXgH");
 
+
+const panel = [{name: "Leads", link: "/leads"}, {name: "Plans", link: "/plans"}];
+
+exports.show_create_plan = function(req, res, next) {
+	res.render('plan/create_plan', { panel });
+}
 
 // Query existing plan with name, if exists, attach this plan to existing product.
 // If plan with same name doesn't exist, create new product.
@@ -85,7 +88,7 @@ exports.submit_plan = function(req, res, next) {
 
 exports.show_plans = function(req, res, next) {
 	return models.Plan.findAll().then(plans => {
- 		res.render('plan/plans', { title: 'Express', plans : plans });		
+ 		res.render('plan/plans', { title: 'Express', plans : plans, panel });		
 	})
 }
 
@@ -95,7 +98,7 @@ exports.show_plan = function(req, res, next) {
 			id : req.params.plan_id
 		}
 	}).then(plan => {
-		res.render('plan/plan', { plan : plan });
+		res.render('plan/plan', { plan : plan, panel });
 	});
 }
 
@@ -106,7 +109,7 @@ exports.show_edit_plan = function(req, res, next) {
 			id : req.params.plan_id
 		}
 	}).then(plan => {
-		res.render('plan/edit_plan', { plan : plan });
+		res.render('plan/edit_plan', { plan : plan, panel });
 	});
 }
 
@@ -138,7 +141,7 @@ const updatePlan = function(req, res, next, plan) {
 }
 
 exports.edit_plan = function(req, res, next) {
-	let updatedPlan = sanitizedPlan(req);
+	let updateParams = sanitizedPlan(req);
 
 	// Re-create stripe plan if price/period has changed.
 	return models.Plan.findOne({
@@ -146,19 +149,19 @@ exports.edit_plan = function(req, res, next) {
 			id: req.params.plan_id}
 		}).then(existingPlan => {
 		// If plan requires re-creating a stripe plan
-		if ((updatedPlan.price_per_period != existingPlan.price_per_period) ||
-			(updatedPlan.billing_period != existingPlan.billing_period)) {
-			return stripeUpdatePlan(req, res, next, updatedPlan).then(newPlan => {
+		if ((updateParams.price_per_period != existingPlan.price_per_period) ||
+			(updateParams.billing_period != existingPlan.billing_period)) {
+			return stripeUpdatePlan(req, res, next, updateParams).then(newParams => {
 				// Save existing plan with new stripe ids.
-				newPlan.save().then(result => {
+				return models.Plan.update(newParams, {where: { id: req.params.plan_id }}).then(result => {
 					res.redirect('/plan/' + req.params.plan_id);
 				})
 			})
 		} else {
 			// Save existing plan, no stripe updates were needed.
-			return updatedPlan.save().then(result => {
-				res.redirect('/plan/' + req.params.plan_id);	
-			})	
+			return models.Plan.update(updateParams, { where: { id: req.params.plan_id }}).then(result => {
+				res.redirect('/plan/' + req.params.plan_id);
+			})
 		}
 	});
 }

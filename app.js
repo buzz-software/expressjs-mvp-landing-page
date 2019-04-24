@@ -15,6 +15,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+app.set('view options', { pretty: true });
+app.locals.pretty = true;
+
 app.use(flash())
 app.use(logger('dev'));
 app.use(express.json());

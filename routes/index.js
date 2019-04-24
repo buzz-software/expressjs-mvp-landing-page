@@ -4,7 +4,6 @@ var router = express.Router();
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
 let plan = require('../controllers/plan');
-let dboard = require('../controllers/dashboard')
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
@@ -35,9 +34,6 @@ router.post('/signup', user.signup);
 router.post('/logout', user.logout);
 router.get('/logout', user.logout);
 
-/* Dashboard */
-router.get('/dashboard', dboard.get_dashboard)
-
 /* GET home page. */
 router.get('/', landing.get_landing);
 router.post('/', landing.submit_lead);
@@ -49,12 +45,12 @@ router.post('/lead/:lead_id/delete', hasAuth, landing.delete_lead);
 router.post('/lead/:lead_id/delete-json', hasAuth, landing.delete_lead_json)
 
 /* Plans */
-router.get('/plan/new', plan.show_create_plan)
-router.post('/plan/new', plan.submit_plan);
-router.get('/plans', plan.show_plans);
-router.get('/plan/:plan_id', plan.show_plan);
-router.get('/plan/:plan_id/edit', plan.show_edit_plan);
-router.post('/plan/:plan_id/edit', plan.edit_plan);
-router.post('/plan/:plan_id/delete', plan.delete_plan);
+router.get('/plan/new', hasAuth, plan.show_create_plan)
+router.post('/plan/new', hasAuth, plan.submit_plan);
+router.get('/plans', hasAuth, plan.show_plans);
+router.get('/plan/:plan_id', hasAuth, plan.show_plan);
+router.get('/plan/:plan_id/edit', hasAuth, plan.show_edit_plan);
+router.post('/plan/:plan_id/edit', hasAuth, plan.edit_plan);
+router.post('/plan/:plan_id/delete', hasAuth, plan.delete_plan);
 /*router.post('/plan/:plan_id/delete-json', plan.delete_plan_json)*/
 module.exports = router;

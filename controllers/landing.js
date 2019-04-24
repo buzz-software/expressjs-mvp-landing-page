@@ -1,6 +1,8 @@
 
 const models = require('../models')
 
+const panel = [{name: "Leads", link: "/leads"}, {name: "Plans", link: "/plans"}];
+
 exports.get_landing = function(req, res, next) {
   res.render('landing', { title: 'Express', user: req.user });
 }
@@ -16,7 +18,7 @@ exports.submit_lead = function(req, res, next) {
 
 exports.show_leads = function(req, res, next) {
 	return models.Lead.findAll().then(leads => {
- 		res.render('lead/leads', { title: 'Express', leads: leads });		
+ 		res.render('lead/leads', { title: 'Express', leads: leads, panel });		
 	})
 }
 
@@ -26,7 +28,7 @@ exports.show_lead = function(req, res, next) {
 			id : req.params.lead_id
 		}
 	}).then(lead => {
-		res.render('lead/lead', { lead : lead });
+		res.render('lead/lead', { lead : lead, panel });
 	});
 }
 
@@ -36,7 +38,7 @@ exports.show_edit_lead = function(req, res, next) {
 			id : req.params.lead_id
 		}
 	}).then(lead => {
-		res.render('lead/edit_lead', { lead : lead });
+		res.render('lead/edit_lead', { lead : lead, panel });
 	});
 }
 
@@ -52,6 +54,7 @@ exports.edit_lead = function(req, res, next) {
 		res.redirect('/lead/' + req.params.lead_id);
 	})
 }
+
 exports.delete_lead = function(req, res, next) {
 	return models.Lead.destroy({
 		where: {
