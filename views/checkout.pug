@@ -1,0 +1,49 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head("Starter MVP")
+  link(rel='stylesheet', type='text/css', href='/stylesheets/stripe.css')
+  body
+    header
+      include common/navbar.pug
+      +navbar(user)
+    div(id="data-stripe-key", data-stripe-key=stripe_public_key)
+    .container
+      .row.mb-4
+        .col-md-1
+        .col-md-10
+          .card
+            .card-body
+              - plan.billing_period = plan.billing_period.charAt(0).toUpperCase() + plan.billing_period.slice(1);
+              h3 #{plan.name}
+              p.lead #{plan.billing_period}
+      .row
+        .col-md-1
+        .col-md-7
+          .card
+            .card-body
+              form(action="/checkout", method="POST", id="payment-form")
+                div.form-row
+                label(for="card-element") Credit or debit card
+                div(id="card-element")
+                div(id="card-errors", role="alert")
+                button.btn.btn-primary.mt-3(type="submit") Submit Payment
+        .col-md-3
+          .card
+            .card-body
+              h4 Order Summary
+              p.lead #{plan.name}
+              p #{plan.feature1}
+              p #{plan.feature2}
+              p #{plan.feature3}
+              p #{plan.feature4}
+              p #{plan.feature5}
+              p #{plan.feature6}
+              p and more.
+              hr
+              h5 Total:
+              p.lead #{plan.price_per_period} USD
+  include common/footer.pug
+  +footer()
+  script(src="https://js.stripe.com/v3/")
+  script(src="/javascripts/checkout.js")

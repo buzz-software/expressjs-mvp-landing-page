@@ -4,14 +4,12 @@ var env  = process.env.NODE_ENV || 'development';
 //const {twitter, google, facebook} = configs[env];
 const models = require('../models')
 
+const panel = [{name: "Leads", link: "/leads"}, {name: "Plans", link: "/plans"}];
 
 
 const productPrefix = "SaaS_";
 
 var stripe = require("stripe")("sk_test_NJ73Ciw9UF0TNSERdKlZWXgH");
-
-
-const panel = [{name: "Leads", link: "/leads"}, {name: "Plans", link: "/plans"}];
 
 exports.show_create_plan = function(req, res, next) {
 	res.render('plan/create_plan', { panel });
@@ -204,3 +202,16 @@ exports.show_pricing_yearly = function(req, res, next) {
 		res.render("pricing", { plans : plans });
 	});
 }
+
+exports.pick_plan = function(req, res, next) {
+	return models.Plan.findOne({where: { id: req.body.planId }}).then(plan => {
+		if (!plan) {
+			next();
+		}
+		res.redirect("/checkout"+ "?plan=" + plan.id);
+	}).catch(err => next(err));
+}
+
+
+
+

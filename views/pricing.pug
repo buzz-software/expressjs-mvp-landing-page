@@ -27,39 +27,39 @@ html(lang='en')
                 li.nav-item
                   a(href="/pricing-yearly").nav-link.active Yearly
     .container
-      .card-deck.mb-3.text-center
-        for plan in plans
-          .card.mb-4.shadow-sm
-            .card-header
-              h4.my-0.font-weight-normal #{plan.name}
-            .card-body.d-flex.flex-column
-              h1.card-title.pricing-card-title
-                | $ #{plan.price_per_period}
-                - let period = plan.billing_period.slice(0,-2)
-                small.text-muted / #{period}
-              ul.list-unstyled.mt-3.mb-4
-                if (plan.feature1)
-                  li #{plan.feature1}
-                if (plan.feature2)
-                  li #{plan.feature2}
-                if (plan.feature3)
-                  li #{plan.feature3}
-                if (plan.feature4)
-                  li #{plan.feature4}
-                if (plan.feature5)
-                  li #{plan.feature5}
-                if (plan.feature6)
-                  li #{plan.feature6}
-                if (plan.feature7)
-                  li #{plan.feature7}
-                if (plan.feature8)
-                  li #{plan.feature8}
-                if (plan.feature9)
-                  li #{plan.feature9}
-                if (plan.feature10)
-                  li #{plan.feature10}
-
-              button.btn.btn-lg.btn-block.btn-outline-primary.mt-auto(type='button') #{plan.cta}
+      form(action="/pick-plan", method="POST")
+        .card-deck.mb-3.text-center
+          for plan in plans
+            .card.mb-4.shadow-sm
+              .card-header
+                h4.my-0.font-weight-normal #{plan.name}
+              .card-body.d-flex.flex-column
+                h1.card-title.pricing-card-title
+                  | $ #{plan.price_per_period}
+                  - let period = plan.billing_period.slice(0,-2)
+                  small.text-muted / #{period}
+                ul.list-unstyled.mt-3.mb-4
+                  if (plan.feature1)
+                    li #{plan.feature1}
+                  if (plan.feature2)
+                    li #{plan.feature2}
+                  if (plan.feature3)
+                    li #{plan.feature3}
+                  if (plan.feature4)
+                    li #{plan.feature4}
+                  if (plan.feature5)
+                    li #{plan.feature5}
+                  if (plan.feature6)
+                    li #{plan.feature6}
+                  if (plan.feature7)
+                    li #{plan.feature7}
+                  if (plan.feature8)
+                    li #{plan.feature8}
+                  if (plan.feature9)
+                    li #{plan.feature9}
+                  if (plan.feature10)
+                    li #{plan.feature10}
+                button(name="planId", value=plan.id).btn.btn-lg.btn-block.btn-outline-primary.mt-auto #{plan.cta}
       footer.pt-4.my-md-5.pt-md-5.border-top
         .row
           .col-12.col-md
