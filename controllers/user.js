@@ -48,7 +48,7 @@ exports.signup = function(req, res, next) {
 				}
 				return newUser.save().then(result => {
 					passport.authenticate('local', {
-						successRedirect: "/",
+						successReturnToOrRedirect: "/",
 						failureRedirect: "/signup",
 						failureFlash: true
 					})(req, res, next);
@@ -60,7 +60,7 @@ exports.signup = function(req, res, next) {
 
 exports.login = function(req, res, next) { 
 	passport.authenticate('local', {
-		successRedirect: "/",
+		successReturnToOrRedirect: "/",
 		failureRedirect: "/login",
 		failureFlash: true
 	})(req, res, next);
@@ -68,6 +68,7 @@ exports.login = function(req, res, next) {
 exports.logout = function(req, res, next) { 
 	req.logout();
 	req.session.destroy();
+	delete req.session;
 	res.redirect('/');
 }
 

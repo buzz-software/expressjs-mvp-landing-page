@@ -4,25 +4,33 @@ var router = express.Router();
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
 let plan = require('../controllers/plan');
+let checkout = require('../controllers/checkout');
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
 var passport = require('passport');
 
 router.get('/signup/twitter/return', passport.authenticate('twitter'), (req, res, next) => {
-    res.redirect("/");
+    res.redirect(req.session.returnTo);
 });
 
 router.get('/o/oauth/google', passport.authenticate('google'), (req, res, next) => {
-    res.redirect("/");
+	console.log("Google Redirecting....")
+    res.redirect(req.session.returnTo);
 });
 
 router.get('/o/oauth/facebook', passport.authenticate('facebook'), (req, res, next) => {
-    res.redirect("/");
+    res.redirect(req.session.returnTo);
 });
 
+router.get('/signin-basik', landing.signin_basik)
+router.get('/checkout', isLoggedIn, checkout.show_checkout);
+router.post('/checkout', isLoggedIn, checkout.process_cc);
 router.get('/pricing', plan.show_pricing);
 router.get('/pricing-yearly', plan.show_pricing_yearly);
+router.post('/pick-plan', plan.pick_plan);
+
+
 router.get('/signup-twitter', passport.authenticate('twitter'));
 router.get('/signup-google', passport.authenticate('google', { scope: ['profile', 'email']}));
 router.get('/signup-facebook', passport.authenticate('facebook', { scope: ['email']}));

@@ -27,6 +27,7 @@ html(lang='en')
                 label(for="card-element") Credit or debit card
                 div(id="card-element")
                 div(id="card-errors", role="alert")
+                input(type='hidden', name="planId", value=plan.id)
                 button.btn.btn-primary.mt-3(type="submit") Submit Payment
         .col-md-3
           .card

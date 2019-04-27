@@ -67,10 +67,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
   });
-/*  
+
   Plan.associate = function(models) {
-    Plan.hasMany(models.Company);
+    Plan.hasMany(models.User);
   }
-*/ 
   return Plan;
 };

@@ -7,6 +7,9 @@ exports.get_landing = function(req, res, next) {
   res.render('landing', { title: 'Express', user: req.user });
 }
 
+exports.signin_basik = function(req, res, next) {
+	res.render('user/signin-basik', { });
+}
 exports.submit_lead = function(req, res, next) {
 
 	return models.Lead.create({

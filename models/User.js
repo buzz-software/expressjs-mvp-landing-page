@@ -94,7 +94,25 @@ module.exports = (sequelize, DataTypes) => {
     facebookUsername: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    // Stripe Subscription
+    stripe_CustomerId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    stripe_SubscriptionId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    is_customer: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      default: false,
     }
-  })
+  });
+
+  User.associate = function(models) {
+    User.belongsTo(models.Plan);
+  }
   return User;
 }

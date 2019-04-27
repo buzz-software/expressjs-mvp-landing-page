@@ -205,10 +205,17 @@ exports.show_pricing_yearly = function(req, res, next) {
 
 exports.pick_plan = function(req, res, next) {
 	return models.Plan.findOne({where: { id: req.body.planId }}).then(plan => {
+		console.log("Plan:", plan)
 		if (!plan) {
 			next();
 		}
-		res.redirect("/checkout"+ "?plan=" + plan.id);
+		if (req.session) {
+			req.session.planId = plan.id
+		} else {
+			req.session = {};
+			req.session.planId = plan.id;
+		}
+		return res.redirect("/checkout");
 	}).catch(err => next(err));
 }
 
