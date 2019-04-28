@@ -35,7 +35,7 @@ body
                     a(href="/plan/" + plan.id + "/edit") Edit
                   td 
                     form(action="/plan/" + plan.id + "/delete", method="POST")
-                      button(type="submit").btn.btn-primary Delete
+                      button(type="submit").btn.btn-primary.btn-sm Delete
   include ../common/footer.pug
   +footer()
   script(src='/javascripts/plans.js')

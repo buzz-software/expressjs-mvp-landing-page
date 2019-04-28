@@ -35,8 +35,8 @@ body
                     td
                       a(href="/plan/" + plan.id) Details
                     td 
-                      button(onclick=`deletePlan('${plan.id}')`).btn.btn-primary Delete
-            a(href="/plan/new").btn.btn-primary.d-flex.justify-content-center.align-content
+                      button(onclick=`deletePlan('${plan.id}')`).btn.btn-primary.btn-sm Delete
+            a(href="/plan/new").btn.btn-primary.d-flex.justify-content-center.align-content.btn-sm
               i.material-icons add
               span Create New Plan
   include ../common/footer.pug
