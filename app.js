@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let passport = require('passport');
-let session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let flash = require('connect-flash')
@@ -25,7 +24,36 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'our new secret'}));
+
+var env  = process.env.NODE_ENV || 'development';
+var configs = {
+  development, production
+} = require('./config/cloud.js');
+var config = configs[env];
+var redis_config = config.redis;
+
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var redis = require('redis');
+var client = redis.createClient(redis_config.port, redis_config.host);
+
+// These 3 has to be declared in this order or
+// your sessions will fail and you won't know why! :)
+// FIXME: Genereate proper session secret.
+app.use(session({
+    store: new RedisStore({
+      host: redis_config.host,
+      port: redis_config.port,
+      client: client,
+      logErrors: true,
+    }),
+    secret: '1234-Uxf;\'aap2E``45',
+    maxAge: Date.now() + (15 * 86400 * 1000),
+    saveUninitialized: false,
+    resave: false,
+    secure: false,
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
