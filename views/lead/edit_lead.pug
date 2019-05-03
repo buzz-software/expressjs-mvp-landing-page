@@ -1,20 +1,9 @@
-include ../common/head.pug
-+head("Edit Lead")
-body
-  header
-    include ../common/navbar.pug
-    +navbar(user)
-  //  Custom styles for this template 
-  link(href='/stylesheets/simple-sidebar.css', rel='stylesheet')
-  .d-flex#wrapper
-    //  Sidebar 
-    .bg-light.border-right#sidebar-wrapper
-      .sidebar-heading Dashboard
-      .list-group.list-group-flush
-        for item in panel
-          a(href=item.link).list-group-item.list-group-item-action.bg-light #{item.name}
-    //  /#sidebar-wrapper 
-    //  Page Content 
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("Edit Lead")
+
+block page_content
     #page-content-wrapper
       .container
         .row.align-items-center
@@ -25,5 +14,6 @@ body
                 input(name="lead_email", type="email", placeholder="Enter your email address", value=lead.email).form-control
                 .input-group-append
                   button(type="submit").btn.btn-primary Save
+block footer
   include ../common/footer.pug
   +footer()

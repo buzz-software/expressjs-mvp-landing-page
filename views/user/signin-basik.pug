@@ -1,0 +1,66 @@
+include ../common/head.pug
++head(title)
+body.layout-row
+  .d-flex.flex-column.flex
+    .row.no-gutters.h-100
+      .col-md-6.bg-primary
+        .p-3.p-md-5.d-flex.flex-column.h-100
+          h4.mb-3.text-white Basik
+          .text-fade Bootstrap 4 Web Application
+          .d-flex.flex.align-items-center.justify-content-center.
+            
+            
+          .d-flex.text-sm.text-fade
+            a.text-white(href='index.html') About
+            span.flex
+            a.text-white.mx-1(href='#') Terms
+            a.text-white.mx-1(href='#') Policy
+      .col-md-6
+        #content-body
+          .p-3.p-md-5
+            h5 Welcome back
+            p
+              small.text-muted Login to manage your account
+            form(role='form', action='dashboard.html')
+              .form-group
+                label Email
+                input.form-control(type='email', placeholder='Enter email')
+              .form-group
+                label Password
+                input.form-control(type='password', placeholder='Password')
+                .my-3.text-right
+                  a.text-muted(href='forgot-password.html') Forgot password?
+              .checkbox.mb-3
+                label.ui-check
+                  input(type='checkbox')
+                  i
+                  |  Remember me
+
+              button.btn.btn-primary.mb-4(type='submit') Sign in
+              div
+                | Do not have an account?
+
+                a.text-primary(href='signup.html') Sign up
+  include ../common/footer.pug
+  +footer()
+  //  build:js ../assets/js/site.min.js 
+  //  jQuery 
+  script(src='../libs/jquery/dist/jquery.min.js')
+  //  Bootstrap 
+  script(src='../libs/popper.js/dist/umd/popper.min.js')
+  script(src='../libs/bootstrap/dist/js/bootstrap.min.js')
+  //  ajax page 
+  script(src='../libs/pjax/pjax.min.js')
+  script(src='../assets/js/ajax.js')
+  //  lazyload plugin 
+  script(src='../assets/js/lazyload.config.js')
+  script(src='../assets/js/lazyload.js')
+  script(src='../assets/js/plugin.js')
+  //  scrollreveal 
+  script(src='../libs/scrollreveal/dist/scrollreveal.min.js')
+  //  feathericon 
+  script(src='../libs/feather-icons/dist/feather.min.js')
+  script(src='../assets/js/plugins/feathericon.js')
+  //  theme 
+  script(src='../assets/js/the./assets/js/utils.js')
+  //  endbuild me.js')

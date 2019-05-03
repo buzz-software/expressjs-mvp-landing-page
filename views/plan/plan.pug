@@ -1,41 +1,30 @@
-include ../common/head.pug
-+head(title)
-body
-  header
-    include ../common/navbar.pug
-    +navbar(user)
-  //  Custom styles for this template 
-  link(href='/stylesheets/simple-sidebar.css', rel='stylesheet')
-  .d-flex#wrapper
-    //  Sidebar 
-    .bg-light.border-right#sidebar-wrapper
-      .sidebar-heading Dashboard
-      .list-group.list-group-flush
-        for item in panel
-          a.list-group-item.list-group-item-action.bg-light(href=item.link) #{item.name}
-    //  /#sidebar-wrapper 
-    //  Page Content 
-    #page-content-wrapper
-      .container
-        .row
-          .col-md-8
-            h1 Plan
-            table.table
-              thead
-                tr
-                  th(scope="col") Name
-                  th(scope="col") Edit
-                  th(scope="col") Delete
-                tr
-              tbody                              
-                tr(id=plan.id)
-                  td
-                    span #{plan.name}
-                  td
-                    a(href="/plan/" + plan.id + "/edit") Edit
-                  td 
-                    form(action="/plan/" + plan.id + "/delete", method="POST")
-                      button(type="submit").btn.btn-primary.btn-sm Delete
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("Plan")
+block page_content
+  #page-content-wrapper
+    .container
+      .row
+        .col-md-8
+          h1 Plan
+          table.table
+            thead
+              tr
+                th(scope="col") Name
+                th(scope="col") Edit
+                th(scope="col") Delete
+              tr
+            tbody                              
+              tr(id=plan.id)
+                td
+                  span #{plan.name}
+                td
+                  a(href="/plan/" + plan.id + "/edit") Edit
+                td 
+                  form(action="/plan/" + plan.id + "/delete", method="POST")
+                    button(type="submit").btn.btn-primary.btn-sm Delete
+block footer
   include ../common/footer.pug
   +footer()
   script(src='/javascripts/plans.js')

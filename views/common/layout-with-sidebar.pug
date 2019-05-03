@@ -1,0 +1,18 @@
+block head
+body
+  header
+    include ../common/navbar.pug
+    +navbar(user)
+  //  Custom styles for this template 
+  link(href='/stylesheets/simple-sidebar.css', rel='stylesheet')
+  .d-flex#wrapper
+    //  Sidebar 
+    .bg-light.border-right#sidebar-wrapper
+      .sidebar-heading Dashboard
+      .list-group.list-group-flush
+        for item in panel
+          a(href=item.link).list-group-item.list-group-item-action.bg-light #{item.name}
+    //  /#sidebar-wrapper 
+    //  Page Content 
+    block page_content
+  block footer
