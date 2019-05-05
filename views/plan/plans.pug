@@ -27,6 +27,13 @@ block page_content
             a(href="/plan/new").btn.btn-primary.d-flex.justify-content-center.align-content.btn-sm
               i.material-icons add
               span Create New Plan
+          .col-md-4  
+            h4 How does this work?
+            p.lead When you add montly / yearly plans here, this automatically adds/deletes plans in your Stripe account.
+            p.lead If you go to your
+              a(href="/pricing") 
+                | pricing 
+              | page you will see updated plans there.
 block footer
   include ../common/footer.pug
   +footer()

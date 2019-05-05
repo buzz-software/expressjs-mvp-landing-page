@@ -5,6 +5,7 @@ let landing = require('../controllers/landing');
 let user = require('../controllers/user');
 let plan = require('../controllers/plan');
 let checkout = require('../controllers/checkout');
+let mc = require('../controllers/mailchimp');
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
@@ -61,4 +62,11 @@ router.get('/plan/:plan_id/edit', hasAuth, plan.show_edit_plan);
 router.post('/plan/:plan_id/edit', hasAuth, plan.edit_plan);
 router.post('/plan/:plan_id/delete', hasAuth, plan.delete_plan);
 /*router.post('/plan/:plan_id/delete-json', plan.delete_plan_json)*/
+
+
+
+/* Mailchimp */
+router.get('/mailchimp', hasAuth, mc.show_mailchimp_settings)
+router.post('/mailchimp', hasAuth, mc.update_mailchimp_settings);
+
 module.exports = router;

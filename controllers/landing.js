@@ -1,7 +1,11 @@
 
 const models = require('../models')
 
-const panel = [{name: "Leads", link: "/leads"}, {name: "Plans", link: "/plans"}];
+const sidepanel = require('../helpers/sidepanel');
+
+const panel = sidepanel.panel
+
+const { addSubscriberToMailchimp } = require('./mailchimp');
 
 exports.get_landing = function(req, res, next) {
   res.render('landing', { title: 'Express', user: req.user });
@@ -15,11 +19,15 @@ exports.submit_lead = function(req, res, next) {
 	return models.Lead.create({
 		email: req.body.lead_email
 	}).then(lead => {
-		res.redirect('/leads');
+		models.Mailchimp.findOne({where: {name: "landing"}}).then(mc => {
+			addSubscriberToMailchimp(req.body.lead_email, mc);
+			res.redirect('/leads');	
+		})
 	})
 }
 
 exports.show_leads = function(req, res, next) {
+	console.log("panel:", panel)
 	return models.Lead.findAll().then(leads => {
  		res.render('lead/leads', { title: 'Express', leads: leads, panel });		
 	})

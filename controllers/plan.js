@@ -4,7 +4,8 @@ var env  = process.env.NODE_ENV || 'development';
 //const {twitter, google, facebook} = configs[env];
 const models = require('../models')
 
-const panel = [{name: "Leads", link: "/leads"}, {name: "Plans", link: "/plans"}];
+const sidepanel = require('../helpers/sidepanel');
+const panel = sidepanel.panel
 
 
 const productPrefix = "SaaS_";
