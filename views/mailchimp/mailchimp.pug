@@ -7,10 +7,8 @@ block page_content
     #page-content-wrapper
       .container
         .row.align-items-center
-          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+          .col-md-6.text-center.text-md-left
             h1 Mailchimp Settings
-            h4 Description
-            p.lead If you set up a Mailchimp account, and add your subscriber list id and Mailchimp API key here, your landing page email form will start sending email submissions to your Mailchimp list.
             h4 List Id
             p.lead #{mc.listid}
             h4 API Key
@@ -18,11 +16,21 @@ block page_content
             form(action="/mailchimp", method="POST")
               label.small.mb-1.mt-3 Enter Mailchimp List Id:
               .input-group.mb-3
-                input(name="mc_listid", type="text", placeholder="2342340134-us2", value=mc.listid).form-control
+                input(name="mc_listid", type="text", placeholder="0f954f034a", value=mc.listid).form-control
               label.small.mb-1.mt-3 Enter Mailchimp API Key:
               .input-group.mb-3
-                input(name="mc_api_key", type="text", placeholder="2340234023402", value=mc.api_key).form-control
+                input(name="mc_api_key", type="text", placeholder="2340234023402-us2", value=mc.api_key).form-control
               button(type="submit").btn.btn-primary Save
+          .col-md-4
+            h4 Description
+            p.lead Your landing page email form will start sending email submissions to your Mailchimp email list using this section.
+            h5 Mailchimp Steps:
+            p.lead 1. Sign up for Mailchimp.
+            p.lead 2. Go to Profile > Extras > API Keys. Create an API key if it doesn't exist. Copy & Paste it to the API section here.
+            p.lead 3. Go to Audience > Manage Audience on the right > Settings > Audience Name and Defaults > Audience ID on the right. Copy & paste it to the listid section here.
+            p.lead 4. Click save.
+            p.lead 5. If you submit an email on the landing page, you will now find it in your Mailchimp list as well as the Leads section here.
+
 block footer
   include ../common/footer.pug
   +footer()
