@@ -15,17 +15,20 @@ html(lang='en')
       .container
         .row.justify-content-md-center
           .col-md-8
-            ul.nav.nav-pills.nav-justified
-              if plans[0].billing_period == "monthly"
-                li.nav-item
-                    a(href="/pricing").nav-link.active Monthly
-                li.nav-item
-                  a(href="/pricing-yearly").nav-link Yearly
-              else
-                li.nav-item
-                  a(href="/pricing").nav-link Monthly
-                li.nav-item
-                  a(href="/pricing-yearly").nav-link.active Yearly
+            if plans.length > 0
+              ul.nav.nav-pills.nav-justified
+                if plans[0].billing_period == "monthly"
+                  li.nav-item
+                      a(href="/pricing").nav-link.active Monthly
+                  li.nav-item
+                    a(href="/pricing-yearly").nav-link Yearly
+                else
+                  li.nav-item
+                    a(href="/pricing").nav-link Monthly
+                  li.nav-item
+                    a(href="/pricing-yearly").nav-link.active Yearly
+            else
+              h4 No subscription plans available at this time.
     .container
       form(action="/pick-plan", method="POST")
         .card-deck.mb-3.text-center

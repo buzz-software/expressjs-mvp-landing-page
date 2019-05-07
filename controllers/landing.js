@@ -14,6 +14,7 @@ exports.get_landing = function(req, res, next) {
 exports.signin_basik = function(req, res, next) {
 	res.render('user/signin-basik', { });
 }
+
 exports.submit_lead = function(req, res, next) {
 
 	return models.Lead.create({
@@ -21,7 +22,7 @@ exports.submit_lead = function(req, res, next) {
 	}).then(lead => {
 		models.Mailchimp.findOne({where: {name: "landing"}}).then(mc => {
 			addSubscriberToMailchimp(req.body.lead_email, mc);
-			res.redirect('/leads');	
+			res.redirect('/pricing');	
 		})
 	})
 }
