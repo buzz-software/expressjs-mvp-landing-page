@@ -69,9 +69,11 @@ module.exports = (sequelize, DataTypes) => {
 
   // ForeignKey: How you want to name this model's key in the join table.
   // OtherKey: How you want to name the opposite model's key in the join table.
-
   Product.associate = function(models) {
     Product.belongsToMany(models.User, { through: "PurchasedProduct", as: "Buyers", foreignKey: "ProductId", otherKey: "UserId"  });
+    // Product has one download file, and image file.
+    Product.belongsTo(models.File, { as: "File" });
+    Product.belongsTo(models.File, { as: "Image"});  
   }
   return Product;
 };
