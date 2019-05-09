@@ -4,8 +4,10 @@ var router = express.Router();
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
 let plan = require('../controllers/plan');
+let product = require('../controllers/product');
 let checkout = require('../controllers/checkout');
 let mc = require('../controllers/mailchimp');
+let social = require('../controllers/social');
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
@@ -63,7 +65,21 @@ router.post('/plan/:plan_id/edit', hasAuth, plan.edit_plan);
 router.post('/plan/:plan_id/delete', hasAuth, plan.delete_plan);
 /*router.post('/plan/:plan_id/delete-json', plan.delete_plan_json)*/
 
+/* Products */
+router.get('/d/product/new', hasAuth, product.show_create_product)
+router.post('/d/product/new', hasAuth, product.submit_product);
+router.get('/d/products', hasAuth, product.show_products);
+router.get('/d/product/:product_id', hasAuth, product.show_product);
+router.get('/d/product/:product_id/edit', hasAuth, product.show_edit_product);
+router.post('/d/product/:product_id/edit', hasAuth, product.edit_product);
+router.post('/d/product/:product_id/delete', hasAuth, product.delete_product);
+/*router.post('/product/:product_id/delete-json', product.delete_product_json)*/
 
+/* Visitor route for products */
+router.get('/products', product.show_user_products);
+
+router.get('/social-settings', hasAuth, social.show_social_settings);
+router.post('/social-settings', hasAuth, social.post_social_settings);
 
 /* Mailchimp */
 router.get('/mailchimp', hasAuth, mc.show_mailchimp_settings)

@@ -1,0 +1,30 @@
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("product")
+block page_content
+  #page-content-wrapper
+    .container
+      .row
+        .col-md-8
+          h1 Product
+          table.table
+            thead
+              tr
+                th(scope="col") Name
+                th(scope="col") Edit
+                th(scope="col") Delete
+              tr
+            tbody                              
+              tr(id=product.id)
+                td
+                  span #{product.name}
+                td
+                  a(href="/d/product/" + product.id + "/edit") Edit
+                td 
+                  form(action="/d/product/" + product.id + "/delete", method="POST")
+                    button(type="submit").btn.btn-primary.btn-sm Delete
+block footer
+  include ../common/footer.pug
+  +footer()
+  script(src='/javascripts/products.js')

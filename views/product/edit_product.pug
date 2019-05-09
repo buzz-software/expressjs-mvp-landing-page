@@ -1,0 +1,49 @@
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("Edit product")
+block page_content
+    #page-content-wrapper
+      .container
+        .row
+          .col-md-8
+            h1 Edit Product
+            form(action="/d/product/"+product.id+"/edit", method="POST")
+              .input-group.mb-3
+                input(name="product_name", type="text", placeholder="Enter product name, e.g. Basic/Small Business/Pro", value=product.name).form-control
+              .input-group.mb-3
+                input(name="product_description", type="text", placeholder="Enter product description, e.g. Basic/Small Business/Pro", value=product.description).form-control
+              .input-group.mb-3
+                input(name="product_price", type="number", placeholder="USD price per period", value=product.price).form-control
+              .input-group.mb-3
+                input(name="product_cta", type="text", placeholder="Call to action, e.g. Get Started Free", value=product.cta).form-control
+              .input-group.mb-3
+                input(name="product_discount_pct", type="number", placeholder="Discount percentage", value=product.discount_pct).form-control
+              .input-group.mb-3
+                input(name="product_feature1", type="text", placeholder="Enter feature description", value=product.feature1).form-control
+              .input-group.mb-3
+                input(name="product_feature2", type="text", placeholder="Enter feature description", value=product.feature2).form-control
+              .input-group.mb-3
+                input(name="product_feature3", type="text", placeholder="Enter feature description", value=product.feature3).form-control
+              .input-group.mb-3
+                input(name="product_feature4", type="text", placeholder="Enter feature description", value=product.feature4).form-control
+              .input-group.mb-3
+                input(name="product_feature5", type="text", placeholder="Enter feature description", value=product.feature5).form-control
+              .input-group.mb-3
+                input(name="product_feature6", type="text", placeholder="Enter feature description", value=product.feature6).form-control
+              .input-group.mb-3
+                input(name="product_feature7", type="text", placeholder="Enter feature description", value=product.feature7).form-control
+              .input-group.mb-3
+                input(name="product_feature8", type="text", placeholder="Enter feature description", value=product.feature8).form-control
+              .input-group.mb-3
+                input(name="product_feature9", type="text", placeholder="Enter feature description", value=product.feature9).form-control
+              .input-group.mb-3
+                input(name="product_feature10", type="text", placeholder="Enter feature description", value=product.feature10).form-control
+              .input-group.mb-3
+                input(name="product_rank", type="number", placeholder="Order of appearance", value=product.rank).form-control              
+                .input-group-append
+                  button(type="submit").btn.btn-primary Save
+
+block footer
+  include ../common/footer.pug
+  +footer()

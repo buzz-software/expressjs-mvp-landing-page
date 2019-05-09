@@ -9,13 +9,15 @@ mixin navbar(user)
         if currentUser && currentUser.is_admin
           li.nav-item
             a.nav-link(href="/leads") Dashboard
+          li.nav-item
+            a.nav-link(href="/products") Products
+          li.nav-item
+            a.nav-link(href="/pricing") Pricing
     .navbar-right
       if currentUser
         span.navbar-text Hello #{currentUser.firstname}!
     .navbar-right
       ul.navbar-nav.mr-auto
-        li.nav-item
-          a.nav-link(href="/pricing") Pricing
         if !currentUser
           li.nav-item
             a.nav-link(href="/signup") Sign up

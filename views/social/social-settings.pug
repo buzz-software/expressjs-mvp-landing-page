@@ -1,0 +1,43 @@
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("Social Login Settings")
+
+block page_content
+    #page-content-wrapper
+      .container
+        .row
+          .col-md-6.text-center.text-md-left
+            h1 Social Login Settings
+            h4 Your domain:
+            p.lead #{domain}
+            form(action="/social-settings", method="POST")
+              label.small.mb-1.mt-3 Enter Your Domain:
+              .input-group.mb-3
+                input(name="domain", type="text", placeholder="yourdomain.com", value=domain).form-control
+              button(type="submit").btn.btn-primary Save
+          .col-md-6
+            h4 How does this work?
+            h5 Step 1:
+            p.lead You must create social login apps by visiting Twitter, Facebook and Google sites for creating applications.
+            p.lead For Twitter, visit: 
+              a(href="https://developer.twitter.com/en/apps" rel="nofollow")
+                | https://developer.twitter.com/en/apps
+            p.lead For Facebook, visit: 
+              a(href="https://developers.facebook.com" rel="nofollow")
+                | https://developer.twitter.com/en/apps
+            p.lead For Google, visit: 
+              a(href="https://developers.google.com/identity/sign-in/web/sign-in", rel="nofollow")
+                | https://developers.google.com/identity/sign-in/web/sign-in
+            h5 Redirect Settings
+            p.lead Use settings below for redirect urls in each social application:
+            h5 Twitter
+            p.lead https://#{domain}/signup/twitter/return
+            h5 Google
+            p.lead https://#{domain}/o/oauth/google
+            h5 Facebook
+            p.lead https://#{domain}/o/oauth/facebook
+
+block footer
+  include ../common/footer.pug
+  +footer()

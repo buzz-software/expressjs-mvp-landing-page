@@ -1,0 +1,41 @@
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("Products")
+block page_content
+    #page-content-wrapper
+      .container
+        .row
+          .col-md-8
+            h1 Products
+            p Your one-off downloadable digital products for sale.
+            table.table
+              thead
+                tr
+                  th(scope="col") Name
+                  th(scope="col") Actions
+                  th(scope="col")
+                tr
+              tbody                
+                for product in products
+                  tr(id=product.id)
+                    td
+                      span #{product.name}
+                    td
+                      a(href="/d/product/" + product.id) Details
+                    td 
+                      button(onclick=`deleteproduct('${product.id}')`).btn.btn-primary.btn-sm Delete
+            a(href="/product/new").btn.btn-primary.d-flex.justify-content-center.align-content.btn-sm
+              i.material-icons add
+              span Create New product
+          .col-md-4  
+            h4 How does this work?
+            p.lead You can add one-off purchase digital products here. This automatically adds/deletes one-off products in your Stripe account.
+            p.lead If you go to your
+              a(href="/products") 
+                | Products 
+              | page you will see updated products there for purchase.
+block footer
+  include ../common/footer.pug
+  +footer()
+  script(src='/javascripts/products.js')

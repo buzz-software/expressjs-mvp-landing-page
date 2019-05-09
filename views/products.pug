@@ -1,0 +1,60 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head("Starter MVP")
+  body
+    header
+      include common/navbar.pug
+      +navbar(user)
+      .page-hero.page-container
+        .padding.d-flex
+          .page-title
+            h2.text-md.text-highlight Products
+            small.text-muted Downloadable digital products
+      .page-content.page-container
+        .padding
+          .row
+            if products[0]
+              for p in products
+                .col-sm-4
+                  .card
+                    .media.media-2x1.gd-primary
+                      a(style="background-image:url()").media-content
+                        strong.text-fade
+                          | Product Image here
+                    .card-body
+                      h5.card-title #{p.name}
+                      p.card-text #{p.description}
+                    ul.list-group.list-group-flush
+                      if p.feature1
+                        li.list-group-item
+                          | #{p.feature1}
+                      if p.feature2
+                        li.list-group-item
+                          | #{p.feature2}
+                      if p.feature3
+                        li.list-group-item
+                          | #{p.feature3}
+                      if p.feature4
+                        li.list-group-item
+                          | #{p.feature4}
+                      if p.feature5
+                        li.list-group-item
+                          | #{p.feature5}
+                      if p.feature6
+                        li.list-group-item
+                          | #{p.feature6}
+                      if p.feature7
+                        li.list-group-item
+                          | #{p.feature7}
+                      if p.feature8
+                        li.list-group-item
+                          | #{p.feature8}
+                      li.list-group-item
+                        p.lead.text-center Price: #{p.price} USD
+                    p.card-body
+                      button(type="submit").btn.btn-small.btn-primary.btn-block Buy
+            else
+              h4 No digital products available at this time. Check back later.
+    include common/footer.pug
+    +footer()
