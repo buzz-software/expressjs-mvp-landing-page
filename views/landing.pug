@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   include common/head.pug
-  +head("Starter MVP")
+  +head(landing.title_tag)
   body
     header
       include common/navbar.pug
@@ -9,13 +9,19 @@ html(lang='en')
       .container
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-            h1.mb-3 Minimum Viable Landing Page
-            p.lead This tutorial teaches you how to build a NodeJS web application covering key topics.
-            p.lead.mb-4 Learn how to launch a landing page and start collecting sales leads.
+            h1.mb-3 #{landing.title}
+            h4.mb-3 #{landing.subtitle}
+            p.lead #{landing.paragraph1}
+            p.lead.mb-4 #{landing.paragraph2} 
+            p.lead #{landing.paragraph3}
             form(action="/", method="POST")
               .input-group.mb-3
                 input(name="lead_email", type="email", placeholder="Enter your email address").form-control
                 .input-group-append
-                  button(type="submit").btn.btn-primary Get Started
+                  button(type="submit").btn.btn-primary #{landing.button_cta}
+          if landing.video_url
+            .col-md-6.order-md-1
+              div.embed-responsive.embed-responsive-16by9
+                iframe(src=landing.video_url)
     include common/footer.pug
     +footer()

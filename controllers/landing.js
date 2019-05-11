@@ -8,7 +8,9 @@ const panel = sidepanel.panel
 const { addSubscriberToMailchimp } = require('./mailchimp');
 
 exports.get_landing = function(req, res, next) {
-  res.render('landing', { title: 'Express', user: req.user });
+	return models.Landing.findOne({where: { name: "landing" }}).then(landing => {
+		res.render('landing', { landing, user: req.user });		
+	})
 }
 
 exports.signin_basik = function(req, res, next) {
@@ -16,73 +18,78 @@ exports.signin_basik = function(req, res, next) {
 }
 
 exports.submit_lead = function(req, res, next) {
-
 	return models.Lead.create({
 		email: req.body.lead_email
 	}).then(lead => {
-		models.Mailchimp.findOne({where: {name: "landing"}}).then(mc => {
-			addSubscriberToMailchimp(req.body.lead_email, mc);
-			res.redirect('/pricing');	
+		return models.Mailchimp.findOne({where: {name: "landing"}}).then(mc => {
+			return addSubscriberToMailchimp(req.body.lead_email, mc).then(result => {
+				return models.Landing.findOne({where: {name: "landing"}}).then(landing => {
+					res.redirect(landing.redirect_url);	
+				})
+					
+			})
 		})
 	})
 }
 
-exports.show_leads = function(req, res, next) {
-	console.log("panel:", panel)
-	return models.Lead.findAll().then(leads => {
- 		res.render('lead/leads', { title: 'Express', leads: leads, panel });		
+// Dashboard side:
+
+exports.show_landing_settings = function(req, res, next) {
+	return models.Landing.findOne({where: { name: "landing" }}).then(landing => {
+		res.render("landing/edit_landing", { panel, landing });
 	})
 }
 
-exports.show_lead = function(req, res, next) {
-	return models.Lead.findOne({
-		where : {
-			id : req.params.lead_id
-		}
-	}).then(lead => {
-		res.render('lead/lead', { lead : lead, panel });
-	});
+
+// this will work for all video of youtube and vimeo
+const commonURLValidator = /\/v\/(.{11})|\/embed\/(.{11})|v=(.{11})|/gm;
+
+function getEmbedUrl(url) {
+	const regYoutubeExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+	const regVimeoExp = /vimeo\.com\/([0-9]{1,10})|player\.vimeo\.com\/video\/([0-9]*)/gm;
+    let match = url.match(regYoutubeExp);
+    if (match) {
+        return 'https://www.youtube.com/embed/' + match[2];
+    } else {
+		match = url.match(regVimeoExp);
+		if (match) {
+			match = match[0].split('/');
+        	return 'https://player.vimeo.com/video/'+match[match.length -1];
+    	} else {
+    		return null;
+    	}
+    }
 }
 
-exports.show_edit_lead = function(req, res, next) {
-	return models.Lead.findOne({
-		where : {
-			id : req.params.lead_id
+// Just validate title is not empty.
+const setVideoEmbedUrl = function(req, res, next) {
+	let errors = {};
+
+	// FIXME: Validate req.body.video_url to be a valid url: http or https.
+	// In fact convert it to valid vimeo player url.
+	if (req.body.video_url) {
+		const urlData = req.body.video_url.match(commonURLValidator);
+		if(urlData == null) {
+			errors["video_url"] = "Please provide a valid video url.";
+		} else {
+			let embed_url = getEmbedUrl(req.body.video_url);
+			if (embed_url) {
+				req.body.video_url = embed_url;
+			} else {
+				errors["video_url"] = "Video url not recognized. Make sure this is a youtube or vimeo video."
+			}
 		}
-	}).then(lead => {
-		res.render('lead/edit_lead', { lead : lead, panel });
-	});
+	}
+	return errors;
 }
 
-exports.edit_lead = function(req, res, next) {
-
-	return models.Lead.update({
-		email: req.body.lead_email
-	}, { 
-		where: {
-			id: req.params.lead_id
-		}
-	}).then(result => {
-		res.redirect('/lead/' + req.params.lead_id);
+// TODO: Sanitize Landing:
+exports.update_landing_settings = function(req, res, next) {
+	return models.Landing.findOne({where: { name: "landing" }}).then(landing => {
+		setVideoEmbedUrl(req, res, next);
+		return landing.update(req.body).then(result => {
+			res.redirect("/landing");
+		})
 	})
 }
 
-exports.delete_lead = function(req, res, next) {
-	return models.Lead.destroy({
-		where: {
-			id: req.params.lead_id
-		}
-	}).then(result => {
-		res.redirect('/leads');
-	})
-}
-
-exports.delete_lead_json = function(req, res, next) {
-	return models.Lead.destroy({
-		where: {
-			id: req.params.lead_id
-		}
-	}).then(result => {
-		res.send({ msg: "Success" });
-	})
-}

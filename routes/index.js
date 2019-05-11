@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-let landing = require('../controllers/landing');
+let lead = require('../controllers/lead');
 let user = require('../controllers/user');
 let plan = require('../controllers/plan');
 let product = require('../controllers/product');
 let checkout = require('../controllers/checkout');
 let mc = require('../controllers/mailchimp');
 let social = require('../controllers/social');
+let landing = require('../controllers/landing');
 
 let {isLoggedIn, hasAuth} = require('../middleware/hasAuth.js')
 
@@ -18,7 +19,6 @@ router.get('/signup/twitter/return', passport.authenticate('twitter'), (req, res
 });
 
 router.get('/o/oauth/google', passport.authenticate('google'), (req, res, next) => {
-	console.log("Google Redirecting....")
     res.redirect(req.session.returnTo);
 });
 
@@ -48,12 +48,16 @@ router.get('/logout', user.logout);
 /* GET home page. */
 router.get('/', landing.get_landing);
 router.post('/', landing.submit_lead);
-router.get('/leads', hasAuth, landing.show_leads);
-router.get('/lead/:lead_id', hasAuth, landing.show_lead);
-router.get('/lead/:lead_id/edit', hasAuth, landing.show_edit_lead);
-router.post('/lead/:lead_id/edit', hasAuth, landing.edit_lead);
-router.post('/lead/:lead_id/delete', hasAuth, landing.delete_lead);
-router.post('/lead/:lead_id/delete-json', hasAuth, landing.delete_lead_json)
+router.get('/landing', landing.show_landing_settings);
+router.post('/landing', landing.update_landing_settings);
+
+/* Leads */
+router.get('/leads', hasAuth, lead.show_leads);
+router.get('/lead/:lead_id', hasAuth, lead.show_lead);
+router.get('/lead/:lead_id/edit', hasAuth, lead.show_edit_lead);
+router.post('/lead/:lead_id/edit', hasAuth, lead.edit_lead);
+router.post('/lead/:lead_id/delete', hasAuth, lead.delete_lead);
+router.post('/lead/:lead_id/delete-json', hasAuth, lead.delete_lead_json)
 
 /* Plans */
 router.get('/plan/new', hasAuth, plan.show_create_plan)

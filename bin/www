@@ -9,6 +9,8 @@ var debug = require('debug')('myapp:server');
 var http = require('http');
 let models = require('../models');
 
+let {seedAll} = require('../seed/seedall');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -27,9 +29,11 @@ var server = http.createServer(app);
  */
 
 return models.sequelize.sync().then(result => {
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
+  return seedAll().then(result => {
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);    
+  })
 })
 
 

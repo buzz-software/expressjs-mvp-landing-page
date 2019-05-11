@@ -1,0 +1,47 @@
+extends ../common/layout-with-sidebar.pug
+block head
+  include ../common/head.pug
+  +head("Edit Landing")
+block page_content
+    #page-content-wrapper
+      .container
+        .row
+          .col-md-8
+            h1 Edit Landing Page content
+            form(action="/landing", method="POST")
+              label.small.mb-1.mt-3 Title tag for SEO:
+              .input-group.mb-3
+                input(name="title_tag", type="text", placeholder="Title tag for SEO. E.g. SaaS Builder", value=landing.title_tag).form-control
+              label.small.mb-1.mt-3 Description tag for SEO:
+              .input-group.mb-3
+                input(name="description_tag", type="text", placeholder="Explain what it is and why it is needed. e.g. Save time launching a SaaS", value=landing.description_tag).form-control
+              label.small.mb-1.mt-3 Page title:
+              .input-group.mb-3
+                input(name="title", type="text", placeholder="Communicate bottom-line value and create further interest to read, e.g. Launch a SaaS in less than a day.", value=landing.title).form-control
+              label.small.mb-1.mt-3 Page subtitle:
+              .input-group.mb-3
+                input(name="subtitle", type="text", placeholder="Optional subtitle text", value=landing.subtitle).form-control
+              label.small.mb-1.mt-3 First paragraph/sentence:
+              .input-group.mb-3
+                input(name="paragraph1", type="text", placeholder="Explain what it is in clear terms. Avoid buzzwords", value=landing.paragraph1).form-control
+              label.small.mb-1.mt-3 Second paragraph/sentence:
+              .input-group.mb-3
+                input(name="paragraph2", type="text", placeholder="Explain further. (optional)", value=landing.paragraph2).form-control
+              label.small.mb-1.mt-3 Third paragraph/sentence:
+              .input-group.mb-3
+                input(name="paragraph3", type="text", placeholder="Explain further. (optional)", value=landing.paragraph3).form-control
+              label.small.mb-1.mt-3 Video url for the product/offer:
+              .input-group.mb-3
+                input(name="video_url", type="text", placeholder="Youtube or Vimeo video url for product", value=landing.video_url).form-control
+              label.small.mb-1.mt-3 Call to action button says:
+              .input-group.mb-3
+                input(name="button_cta", type="text", placeholder="E.g. Get Started", value=landing.button_cta).form-control
+              label.small.mb-1.mt-3 Where should the user go from here? E.g. pricing? products?
+              .input-group.mb-3
+                input(name="redirect_url", type="text", placeholder="/pricing", value=landing.redirect_url).form-control
+                .input-group-append
+                  button(type="submit").btn.btn-primary Save
+
+block footer
+  include ../common/footer.pug
+  +footer()
